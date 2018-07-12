@@ -1,4 +1,3 @@
-
 const TWO_PI = 6.213185;
 
 /*Options*/
@@ -45,18 +44,18 @@ function draw() {
       push();
       rectMode(CENTER);
       translate(block_x, block_y, 0);
-      drawBox(w - gap, w - gap, h, index_x, index_y);
+      drawBox(w - gap, w - gap, h);
       pop();
     }
   }
 }
 
-function mapColourUsingDistance(initialValue, x, y, height){
+function mapColourUsingDistance(initialValue, height){
   return map(height, 10, heightOfWaves, 10, initialValue);
 }
 
-function drawBox(w, h, p, x, y){
-  fill(mapColourUsingDistance(255, x, y, p));
+function drawBox(w, h, p){
+  fill(mapColourUsingDistance(255, p));
   box(w, h, p);
 
 /*
