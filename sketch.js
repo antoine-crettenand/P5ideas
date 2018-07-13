@@ -1,7 +1,10 @@
+var canvas;
+
 const TWO_PI = 6.213185;
 
 /*Options*/
-var cameraDragging = true;
+var cameraDragging;
+var waveTypeElem;
 var cameraZoom = 2;
 var heightOfWaves = 100;
 var waveSpeed = TWO_PI / 128;
@@ -14,15 +17,33 @@ var camera_rot_x = 0;
 var camera_rot_z = 0;
 
 function setup() {
-  createCanvas(500, 500, WEBGL);
+  canvas = createCanvas(500, 500, WEBGL);
+  canvas.position(400, 100);
+  canvas.class("movingBlocks");
+}
+
+/**
+* Define optionnal values such as number of blocks, toggle of camera dragging and wave type
+*/
+function defineOptions(){
+  waveTypeElem = select('#waveType');
+  cameraDragging = select('#cameraDragging');
+  heightOfWavesElem = select('#heightOfWaves');
+  heightOfWaves = heightOfWavesElem.value();
+  offsetFactorElem = select('#offsetFactor');
+  offsetFactor = offsetFactorElem.value();
+  nbr_blocksElem = select('#nbr_blocks');
+  nbr_blocks = nbr_blocksElem.value();
 }
 
 function draw() {
   background(0);
   noStroke();
   isoCamera(0, 0, cameraZoom);
+  defineOptions();
 
-  if (cameraDragging) {
+  /* Camera Dragging based on index.html*/
+  if (cameraDragging.value() == 'enabled') {
     rotateX(camera_rot_x);
     rotateZ(camera_rot_z);
   }
@@ -39,7 +60,29 @@ function draw() {
       var block_x = index_x * w;
       var block_y = index_y * w;
 
-      var h = computeHeight(sin(angle + sq(index_x * offset) + sq(index_y * offset)));
+      var h = 0;
+
+      switch (waveTypeElem.value()) {
+        case "center":
+            h = computeHeight(sin(angle + sq(index_x * offset) + sq(index_y * offset)));
+            break;
+
+        case "side":
+            h = computeHeight(sin(angle + index_x * offset));
+            break;
+
+        case "diagonal":
+            h = computeHeight(sin(angle + index_x * offset + index_y*offset));
+            break;
+
+        case "drop":
+            h = computeHeight(sin(angle - sq(index_x * offset) + sq(index_y*offset)));
+            break;
+
+        case "bump":
+            h = computeHeight(sin(angle + index_x*offset)* cos(index_y*offset));
+            break;
+      }
 
       push();
       rectMode(CENTER);
@@ -50,6 +93,13 @@ function draw() {
   }
 }
 
+/**
+ * Helper function to decide of the color given two coordinates, computes based on distance to origin
+ * @param initialValue colour value of a side of the rectangle
+ * @param coordinates x and y of the rectangle
+ * @param darkeningFactor, the higher the value => far from the origin, faster the side gets darker. If 0 then no darkening effect happens.
+ * @return the new value of colour, between 0 and initialValue
+ */
 function mapColourUsingDistance(initialValue, height){
   return map(height, 10, heightOfWaves, 10, initialValue);
 }
@@ -58,7 +108,7 @@ function drawBox(w, h, p){
   fill(mapColourUsingDistance(255, p));
   box(w, h, p);
 
-/*
+/* @TODO lookup this solution and pass from 30 FPS to 60 FPS
   //Top
   beginShape();
   fill(mapColourUsingDistance(255, x, y, p));
@@ -116,9 +166,13 @@ function drawBox(w, h, p){
   vertex(-w/2, h/2, -p/2);
   endShape(CLOSE);
   */
-
 }
 
+/**
+* Return the height of the cube with given sin/cos function
+* @param sinFunction
+* @return computed value
+*/
 function computeHeight(sinFunction) {
   return map(sinFunction, -1, 1, 10, heightOfWaves);
 }
@@ -129,6 +183,12 @@ function mouseDragged() {
   camera_rot_z += (mouseX - pmouseX)*rate;
 }
 
+/**
+ * Positions the camera in a isometric standard
+ * @param x translate along the x-axis for given value
+ * @param y translate along y-axis for given value
+ * @param darkeningFactor zoom-in for value > 1 and zoom out for value < 1
+ */
 function isoCamera(x, y, zoom) {
   var isoThetaX = radians(60);
   var isoThetaZ = radians(45);
