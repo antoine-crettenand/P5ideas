@@ -1,0 +1,36 @@
+
+body {
+  background-color: rgb(216, 171, 69);
+}
+
+h1 {
+  color: white;
+  text-align: center;
+  font-family: verdana;
+}
+
+legend {
+    background-color: #000;
+    color: #fff;
+    padding: 3px 6px;
+}
+
+.output {
+    font: 1rem 'Fira Sans', sans-serif;
+}
+
+input {
+    margin: .4rem;
+}
+
+.movingBlocks {
+
+  display: block;
+  margin-left: auto;
+
+  /* This centers our sketch horizontally. */
+  justify-content: center;
+
+  /* This centers our sketch vertically. */
+  align-items: center;
+}
