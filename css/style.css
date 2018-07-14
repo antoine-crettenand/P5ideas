@@ -1,18 +1,6 @@
-
-body {
-  background-color: rgb(216, 171, 69);
-}
-
 h1 {
-  color: white;
   text-align: center;
-  font-family: verdana;
-}
-
-legend {
-    background-color: #000;
-    color: #fff;
-    padding: 3px 6px;
+  margin-top: 10px;
 }
 
 .output {
@@ -24,7 +12,6 @@ input {
 }
 
 .movingBlocks {
-
   display: block;
   margin-left: auto;
 

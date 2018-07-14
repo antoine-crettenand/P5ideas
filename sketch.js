@@ -12,46 +12,31 @@ var nbr_blocks = 10;
 var offsetFactor = 6.5;
 
 /*Global variables*/
+var backgroundColor;
 var angle = 0;
 var camera_rot_x = 0;
 var camera_rot_z = 0;
 
 function setup() {
   canvas = createCanvas(400, 400, WEBGL);
+  backgroundColor = window.getComputedStyle(document.body)['backgroundColor'];
   canvas.parent("sketchContainer");
   canvas.class("movingBlocks");
 }
 
-function selectedWaveType(){
-  var radios = document.getElementsByName('waveType');
-  var value;
-
-  for (var i = 0; i < radios.length; i++) {
-    if (radios[i].type === 'radio' && radios[i].checked) {
-        value = radios[i].value;
-    }
-  }
-
-  return value;
+function selectedWaveType() {
+  return select("#waveType").value();
 }
 
-function selectedToggleCamera(){
-  var radios = document.getElementsByName('cameraDragging');
-  var value;
-
-  for (var i = 0; i < radios.length; i++) {
-    if (radios[i].type === 'radio' && radios[i].checked) {
-        value = radios[i].value;
-    }
-  }
-
-  return value;
+function selectedToggleCamera() {
+  console.log(select("#cameraDragging").checked());
+  return select("#cameraDragging").checked;
 }
 
 /**
-* Define optionnal values such as number of blocks, toggle of camera dragging and wave type
-*/
-function defineOptions(){
+ * Define optionnal values such as number of blocks, toggle of camera dragging and wave type
+ */
+function defineOptions() {
 
   waveType = selectedWaveType();
   cameraDragging = selectedToggleCamera();
@@ -65,7 +50,7 @@ function defineOptions(){
 }
 
 function draw() {
-  background(0);
+  background(backgroundColor);
   noStroke();
   isoCamera(0, 0, cameraZoom);
   defineOptions();
@@ -90,24 +75,24 @@ function draw() {
 
       switch (waveType) {
         case "center":
-            h = computeHeight(sin(angle + sq(index_x * offset) + sq(index_y * offset)));
-            break;
+          h = computeHeight(sin(angle + sq(index_x * offset) + sq(index_y * offset)));
+          break;
 
         case "side":
-            h = computeHeight(sin(angle + index_x * offset));
-            break;
+          h = computeHeight(sin(angle + index_x * offset));
+          break;
 
         case "diagonal":
-            h = computeHeight(sin(angle + index_x * offset + index_y*offset));
-            break;
+          h = computeHeight(sin(angle + index_x * offset + index_y * offset));
+          break;
 
         case "drop":
-            h = computeHeight(sin(angle - sq(index_x * offset) + sq(index_y*offset)));
-            break;
+          h = computeHeight(sin(angle - sq(index_x * offset) + sq(index_y * offset)));
+          break;
 
         case "bump":
-            h = computeHeight(sin(angle + index_x*offset)* cos(index_y*offset));
-            break;
+          h = computeHeight(sin(angle + index_x * offset) * cos(index_y * offset));
+          break;
       }
 
       push();
@@ -126,79 +111,79 @@ function draw() {
  * @param darkeningFactor, the higher the value => far from the origin, faster the side gets darker. If 0 then no darkening effect happens.
  * @return the new value of colour, between 0 and initialValue
  */
-function mapColourUsingDistance(initialValue, height){
+function mapColourUsingDistance(initialValue, height) {
   return map(height, 10, heightOfWaves, 10, initialValue);
 }
 
-function drawBox(w, h, p){
+function drawBox(w, h, p) {
   fill(mapColourUsingDistance(255, p));
   box(w, h, p);
 
-/* @TODO lookup this solution and pass from 30 FPS to 60 FPS
-  //Top
-  beginShape();
-  fill(mapColourUsingDistance(255, x, y, p));
-  vertex(-w/2, -h/2, p/2);
-  vertex(w/2, -h/2, p/2);
-  vertex(w/2, h/2, p/2);
-  vertex(-w/2, h/2, p/2);
-  endShape(CLOSE);
+  /* @TODO lookup this solution and pass from 30 FPS to 60 FPS
+    //Top
+    beginShape();
+    fill(mapColourUsingDistance(255, x, y, p));
+    vertex(-w/2, -h/2, p/2);
+    vertex(w/2, -h/2, p/2);
+    vertex(w/2, h/2, p/2);
+    vertex(-w/2, h/2, p/2);
+    endShape(CLOSE);
 
 
-  //Bottom
-  beginShape();
-  fill(mapColourUsingDistance(255, x, y, p));
-  vertex(w/2, -h/2, -p/2);
-  vertex(-w/2, -h/2, -p/2);
-  vertex(-w/2, h/2, -p/2);
-  vertex(w/2, h/2, -p/2);
-  endShape(CLOSE);
+    //Bottom
+    beginShape();
+    fill(mapColourUsingDistance(255, x, y, p));
+    vertex(w/2, -h/2, -p/2);
+    vertex(-w/2, -h/2, -p/2);
+    vertex(-w/2, h/2, -p/2);
+    vertex(w/2, h/2, -p/2);
+    endShape(CLOSE);
 
 
-  //Left
-  beginShape();
-  fill(mapColourUsingDistance(64, x, y, p), mapColourUsingDistance(224, x, y, p), mapColourUsingDistance(208, x, y, p));
-  vertex(-w/2, h/2, p/2);
-  vertex(w/2, h/2, p/2);
-  vertex(w/2, h/2, -p/2);
-  vertex(-w/2, h/2, -p/2);
-  endShape(CLOSE);
+    //Left
+    beginShape();
+    fill(mapColourUsingDistance(64, x, y, p), mapColourUsingDistance(224, x, y, p), mapColourUsingDistance(208, x, y, p));
+    vertex(-w/2, h/2, p/2);
+    vertex(w/2, h/2, p/2);
+    vertex(w/2, h/2, -p/2);
+    vertex(-w/2, h/2, -p/2);
+    endShape(CLOSE);
 
-  //Top
-  beginShape();
-  fill(mapColourUsingDistance(64, x, y, p), mapColourUsingDistance(224, x, y, p), mapColourUsingDistance(208, x, y, p));
-  vertex(-w/2, -h/2, -p/2);
-  vertex(w/2, -h/2, -p/2);
-  vertex(w/2, -h/2, p/2);
-  vertex(-w/2, -h/2, p/2);
-  endShape(CLOSE);
+    //Top
+    beginShape();
+    fill(mapColourUsingDistance(64, x, y, p), mapColourUsingDistance(224, x, y, p), mapColourUsingDistance(208, x, y, p));
+    vertex(-w/2, -h/2, -p/2);
+    vertex(w/2, -h/2, -p/2);
+    vertex(w/2, -h/2, p/2);
+    vertex(-w/2, -h/2, p/2);
+    endShape(CLOSE);
 
-  //Right
-  beginShape();
-  fill(mapColourUsingDistance(255, x, y, p), mapColourUsingDistance(165, x, y, p), 0);
-  vertex(w/2, -h/2, p/2);
-  vertex(w/2, -h/2, -p/2);
-  vertex(w/2, h/2, -p/2);
-  vertex(w/2, h/2, p/2);
-  endShape(CLOSE);
+    //Right
+    beginShape();
+    fill(mapColourUsingDistance(255, x, y, p), mapColourUsingDistance(165, x, y, p), 0);
+    vertex(w/2, -h/2, p/2);
+    vertex(w/2, -h/2, -p/2);
+    vertex(w/2, h/2, -p/2);
+    vertex(w/2, h/2, p/2);
+    endShape(CLOSE);
 
 
-  //Left
-  beginShape();
-  fill(mapColourUsingDistance(255, x, y, p), mapColourUsingDistance(165, x, y, p), 0);
-  vertex(-w/2, -h/2, -p/2);
-  vertex(-w/2, -h/2, p/2);
-  vertex(-w/2, h/2, p/2);
-  vertex(-w/2, h/2, -p/2);
-  endShape(CLOSE);
-  */
+    //Left
+    beginShape();
+    fill(mapColourUsingDistance(255, x, y, p), mapColourUsingDistance(165, x, y, p), 0);
+    vertex(-w/2, -h/2, -p/2);
+    vertex(-w/2, -h/2, p/2);
+    vertex(-w/2, h/2, p/2);
+    vertex(-w/2, h/2, -p/2);
+    endShape(CLOSE);
+    */
 }
 
 /**
-* Return the height of the cube with given sin/cos function
-* @param sinFunction
-* @return computed value
-*/
+ * Return the height of the cube with given sin/cos function
+ * @param sinFunction
+ * @return computed value
+ */
 function computeHeight(sinFunction) {
   return map(sinFunction, -1, 1, 10, heightOfWaves);
 }
@@ -206,9 +191,9 @@ function computeHeight(sinFunction) {
 function mouseDragged() {
   var rate = 0.01;
 
-  if (cameraDragging == 'enabled') {
-    camera_rot_x += (pmouseY - mouseY)*rate;
-    camera_rot_z += (mouseX - pmouseX)*rate;
+  if (cameraDragging) {
+    camera_rot_x += (pmouseY - mouseY) * rate;
+    camera_rot_z += (mouseX - pmouseX) * rate;
   }
 }
 
