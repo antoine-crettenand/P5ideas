@@ -5,7 +5,7 @@ const TWO_PI = 6.213185;
 /*Options*/
 var cameraDragging;
 var waveTypeElem;
-var cameraZoom = 2;
+var cameraZoom = 1.5;
 var heightOfWaves = 100;
 var waveSpeed = TWO_PI / 128;
 var nbr_blocks = 10;
@@ -17,16 +17,45 @@ var camera_rot_x = 0;
 var camera_rot_z = 0;
 
 function setup() {
-  canvas = createCanvas(500, 500, WEBGL);
+  canvas = createCanvas(400, 400, WEBGL);
+  canvas.parent("sketchContainer");
   canvas.class("movingBlocks");
+}
+
+function selectedWaveType(){
+  var radios = document.getElementsByName('waveType');
+  var value;
+
+  for (var i = 0; i < radios.length; i++) {
+    if (radios[i].type === 'radio' && radios[i].checked) {
+        value = radios[i].value;
+    }
+  }
+
+  return value;
+}
+
+function selectedToggleCamera(){
+  var radios = document.getElementsByName('cameraDragging');
+  var value;
+
+  for (var i = 0; i < radios.length; i++) {
+    if (radios[i].type === 'radio' && radios[i].checked) {
+        value = radios[i].value;
+    }
+  }
+
+  return value;
 }
 
 /**
 * Define optionnal values such as number of blocks, toggle of camera dragging and wave type
 */
 function defineOptions(){
-  waveTypeElem = select('#waveType');
-  cameraDragging = select('#cameraDragging');
+
+  waveType = selectedWaveType();
+  cameraDragging = selectedToggleCamera();
+
   heightOfWavesElem = select('#heightOfWaves');
   heightOfWaves = heightOfWavesElem.value();
   offsetFactorElem = select('#offsetFactor');
@@ -59,7 +88,7 @@ function draw() {
 
       var h = 0;
 
-      switch (waveTypeElem.value()) {
+      switch (waveType) {
         case "center":
             h = computeHeight(sin(angle + sq(index_x * offset) + sq(index_y * offset)));
             break;
@@ -177,7 +206,7 @@ function computeHeight(sinFunction) {
 function mouseDragged() {
   var rate = 0.01;
 
-  if (cameraDragging.value() == 'enabled') {
+  if (cameraDragging == 'enabled') {
     camera_rot_x += (pmouseY - mouseY)*rate;
     camera_rot_z += (mouseX - pmouseX)*rate;
   }
