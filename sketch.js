@@ -29,8 +29,11 @@ function selectedWaveType() {
 }
 
 function selectedToggleCamera() {
-  console.log(select("#cameraDragging").checked());
-  return select("#cameraDragging").checked;
+  return select("#cameraDragging").checked();
+}
+
+function sliderCameraZoom(){
+  return select("#cameraZoom").value();
 }
 
 /**
@@ -40,6 +43,7 @@ function defineOptions() {
 
   waveType = selectedWaveType();
   cameraDragging = selectedToggleCamera();
+  cameraZoom = sliderCameraZoom();
 
   heightOfWavesElem = select('#heightOfWaves');
   heightOfWaves = heightOfWavesElem.value();

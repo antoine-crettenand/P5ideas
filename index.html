@@ -26,12 +26,15 @@
     </div>
   </div>
 
-  <div class="container-fluid" style="outline: 2px solid black">
+  <div class="container" style="border-radius: 5px">
     <div class="row">
       <div class="col-sm">
+        <figure class="highlight_controls">
 
-        <div class="container" style="margin-bottom: 5px; margin-top: 5px; outline: 1px solid black">
-          <div class="row align-items-start" style="margin-left:10px">
+          <div class="form-group">
+          </div>
+
+          <div class="form-group">
             <div class="input-group mb-3">
               <div class="input-group-prepend">
                 <label class="input-group-text" for="waveType">Wave Type</label>
@@ -46,9 +49,8 @@
             </div>
           </div>
 
-          <div class="row align-items-center" style="margin-left:10px">
-
-            <div class="input-group">
+          <div class="form-group">
+            <div class="input-group mb-3">
               <div class="input-group-prepend">
                 <span class="input-group-text">Blocks | Height of Waves | Offset</span>
               </div>
@@ -56,27 +58,35 @@
               <input type="number" id="heightOfWaves" aria-label="Height of Waves" class="form-control" value="100" min="50" max="150">
               <input type="number" id="offsetFactor" aria-label="Offset factor" class="form-control" value="6.5" min="1" max="10">
             </div>
-
           </div>
 
-          <div class="row align-items-end" style="margin-left:10px">
-
+          <div class="form-group">
             <div class="input-group mb-3">
+              <input type="text" class="form-control" value="Toggle Moving Camera With Mouse" aria-label="Text input with checkbox" disabled>
               <div class="input-group-prepend">
                 <div class="input-group-text">
                   <input id="cameraDragging" type="checkbox" aria-label="Checkbox for following text input" checked="unchecked">
                 </div>
               </div>
-              <input type="text" class="form-control" aria-label="Text input with checkbox">
             </div>
-
           </div>
-        </div>
 
+          <div class="form-group">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <label class="input-group-text">Camera Zoom</label>
+              </div>
+              <input type="range" class="custom-range" min="0.5" max="3" step="0.05" value="1" id="cameraZoom">
+
+            </div>
+          </div>
+        </figure>
       </div>
       <div class="row justify-content-md-center">
         <div class="col-sm">
-          <div id="sketchContainer"></div>
+          <figure class="hightlight_sketch">
+            <div id="sketchContainer"></div>
+          </figure>
         </div>
       </div>
     </div>

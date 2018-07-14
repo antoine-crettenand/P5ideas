@@ -11,6 +11,21 @@ input {
     margin: .4rem;
 }
 
+.highlight_controls {
+    padding: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    background-color: #f8f9fa;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+
+    border: rgb(218, 219, 220, 1);
+    border-width: thick;
+}
+
+.hightlight_sketch {
+    outline: rgb(140, 141, 160, 1);
+}
+
 .movingBlocks {
   display: block;
   margin-left: auto;
