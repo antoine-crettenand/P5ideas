@@ -18,7 +18,6 @@ var camera_rot_z = 0;
 
 function setup() {
   canvas = createCanvas(500, 500, WEBGL);
-  canvas.position(400, 100);
   canvas.class("movingBlocks");
 }
 
@@ -43,10 +42,8 @@ function draw() {
   defineOptions();
 
   /* Camera Dragging based on index.html*/
-  if (cameraDragging.value() == 'enabled') {
-    rotateX(camera_rot_x);
-    rotateZ(camera_rot_z);
-  }
+  rotateX(camera_rot_x);
+  rotateZ(camera_rot_z);
 
   angle -= waveSpeed;
   angle %= TWO_PI;
@@ -179,8 +176,11 @@ function computeHeight(sinFunction) {
 
 function mouseDragged() {
   var rate = 0.01;
-  camera_rot_x += (pmouseY - mouseY)*rate;
-  camera_rot_z += (mouseX - pmouseX)*rate;
+
+  if (cameraDragging.value() == 'enabled') {
+    camera_rot_x += (pmouseY - mouseY)*rate;
+    camera_rot_z += (mouseX - pmouseX)*rate;
+  }
 }
 
 /**
