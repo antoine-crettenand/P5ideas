@@ -4,35 +4,26 @@ h1 {
 }
 
 .output {
-    font: 1rem 'Fira Sans', sans-serif;
+  font: 1rem 'Fira Sans', sans-serif;
 }
 
 input {
-    margin: .4rem;
+  margin: .4rem;
 }
 
-.highlight_controls {
-    padding: 1rem;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    background-color: #f8f9fa;
-    -ms-overflow-style: -ms-autohiding-scrollbar;
-
-    border: rgb(218, 219, 220, 1);
-    border-width: thick;
+.border{
+  margin-top: 90px;
 }
 
-.hightlight_sketch {
-    outline: rgb(140, 141, 160, 1);
+.options {
+  margin: .4rem;
 }
 
 .movingBlocks {
   display: block;
   margin-left: auto;
-
   /* This centers our sketch horizontally. */
   justify-content: center;
-
   /* This centers our sketch vertically. */
   align-items: center;
 }

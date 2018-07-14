@@ -12,14 +12,12 @@ var nbr_blocks = 10;
 var offsetFactor = 6.5;
 
 /*Global variables*/
-var backgroundColor;
 var angle = 0;
 var camera_rot_x = 0;
 var camera_rot_z = 0;
 
 function setup() {
   canvas = createCanvas(400, 400, WEBGL);
-  backgroundColor = window.getComputedStyle(document.body)['backgroundColor'];
   canvas.parent("sketchContainer");
   canvas.class("movingBlocks");
 }
@@ -54,7 +52,7 @@ function defineOptions() {
 }
 
 function draw() {
-  background(backgroundColor);
+  background(255, 255, 255 ,0);
   noStroke();
   isoCamera(0, 0, cameraZoom);
   defineOptions();

@@ -16,71 +16,73 @@
   <script type='text/javascript' src='addons/p5.dom.js'></script>
 </head>
 
-<body>
+<body class="p-3 mb-2 bg-light text-dark">
   <script src="sketch.js"></script>
 
-  <div class="container" style="padding-top:auto">
+  <div class="container">
     <div class="row justify-content-md-center">
-      <h1 class="display-2"> Visualize a wave function !</h1>
-      <p class="lead"><em>A standard way of thinking</em> </p>
+      <h1 class="display-2"> Welcome To MovingBlocks.js</h1>
+
     </div>
   </div>
 
   <div class="container" style="border-radius: 5px">
     <div class="row">
       <div class="col-sm">
-        <figure class="highlight_controls">
+        <div class="border">
+          <div class="options">
 
-          <div class="form-group">
-          </div>
+            <div class="form-group"></div>
 
-          <div class="form-group">
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <label class="input-group-text" for="waveType">Wave Type</label>
-              </div>
-              <select class="custom-select" id="waveType">
+            <div class="form-group">
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <label class="input-group-text" for="waveType">Wave Type</label>
+                </div>
+                <select class="custom-select" id="waveType">
                   <option value="center">Center</option>
                   <option value="side">Side</option>
                   <option value="diagonal">Diagonal</option>
-                  <option value="bump">Numè</option>
+                  <option value="bump">Bump</option>
                   <option value="drop">Drop</option>
               </select>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text">Blocks | Height of Waves | Offset</span>
               </div>
-              <input type="number" id="nbr_blocks" aria-label="# of blocks" class="form-control" value="10" min="0" max="20">
-              <input type="number" id="heightOfWaves" aria-label="Height of Waves" class="form-control" value="100" min="50" max="150">
-              <input type="number" id="offsetFactor" aria-label="Offset factor" class="form-control" value="6.5" min="1" max="10">
             </div>
-          </div>
 
-          <div class="form-group">
-            <div class="input-group mb-3">
-              <input type="text" class="form-control" value="Toggle Moving Camera With Mouse" aria-label="Text input with checkbox" disabled>
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <input id="cameraDragging" type="checkbox" aria-label="Checkbox for following text input" checked="unchecked">
+            <div class="form-group">
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Blocks | Height of Waves | Offset</span>
+                </div>
+                <input type="number" id="nbr_blocks" aria-label="# of blocks" class="form-control" value="10" min="0" max="20">
+                <input type="number" id="heightOfWaves" aria-label="Height of Waves" class="form-control" value="100" min="50" max="150">
+                <input type="number" id="offsetFactor" aria-label="Offset factor" class="form-control" value="6.5" min="1" max="10" step="0.5">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="input-group mb-3">
+                <input type="text" class="form-control" value="Toggle Moving Camera With Mouse" aria-label="Text input with checkbox" disabled>
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <input id="cameraDragging" type="checkbox" aria-label="Checkbox for following text input">
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          <div class="form-group">
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <label class="input-group-text">Camera Zoom</label>
+            <div class="form-group">
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <label class="input-group-text">Camera Zoom</label>
+                </div>
+                <input type="range" class="custom-range" min="0.5" max="3" step="0.05" value="1.5" id="cameraZoom">
+
               </div>
-              <input type="range" class="custom-range" min="0.5" max="3" step="0.05" value="1" id="cameraZoom">
-
             </div>
+
           </div>
-        </figure>
+        </div>
       </div>
       <div class="row justify-content-md-center">
         <div class="col-sm">
@@ -91,7 +93,6 @@
       </div>
     </div>
   </div>
-
 </body>
 
 </html>
