@@ -17,7 +17,7 @@ var camera_rot_x = 0;
 var camera_rot_z = 0;
 
 function setup() {
-  canvas = createCanvas(400, 400, WEBGL);
+  canvas = createCanvas(450, 450, WEBGL);
   canvas.parent("sketchContainer");
   canvas.class("movingBlocks");
 }
@@ -59,7 +59,7 @@ function draw() {
 
   /* Camera Dragging based on index.html*/
   rotateX(camera_rot_x);
-  rotateZ(camera_rot_z);
+  rotateZ(-camera_rot_z);
 
   angle -= waveSpeed;
   angle %= TWO_PI;
